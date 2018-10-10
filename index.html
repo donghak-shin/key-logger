@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>input test</title>
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+#wrap {
+    width: 70%;
+    height: 100%;
+    margin: 0 auto;
+}
+div#log {
+    height: 60%;
+    margin: 1em auto 0;
+    border: 1px solid #ccc;
+    padding: 10px;
+    overflow-y: auto;
+}
+div#log p {
+    margin: 0.125em 0;
+}
+</style>
+</head>
+<body>
+    <div id="wrap">
+        <p>
+            <label>입력: <input type="text" id="text"></label>
+            <button id="clear">로그 지우기</button>
+        </p>
+        <fieldset>
+            <legend>이벤트</legend>
+            <label><input type="checkbox" id="chkInput" checked>input</label>
+            <label><input type="checkbox" id="chkKeydown" checked>keydown</label>
+            <label><input type="checkbox" id="chkKeyup" checked>keyup</label>
+        </fieldset>
+        <div id="log"></div>
+    </div>
+    <script>
+        var text = document.getElementById('text');
+        var clearBtn = document.getElementById('clear');
+        var log = document.getElementById('log');
+
+        var chkInput = document.getElementById('chkInput');
+        var chkKeydown = document.getElementById('chkKeydown');
+        var chkKeyup = document.getElementById('chkKeyup');
+
+        text.addEventListener('input', function (e) {
+            if (!chkInput.checked) {
+                return;
+            }
+
+            log.innerHTML += '<p>' + e.type + '</p>';
+        });
+
+        text.addEventListener('keydown', function (e) {
+            if (!chkKeydown.checked) {
+                return;
+            }
+
+            log.innerHTML += '<p>' + e.type + ': ' + e.key + '(' + e.keyCode + ')</p>';
+        });
+
+        text.addEventListener('keyup', function (e) {
+            if (!chkKeyup.checked) {
+                return;
+            }
+
+            log.innerHTML += '<p>' + e.type + ': ' + e.key + '(' + e.keyCode + ')</p>';
+        });
+
+        clear.addEventListener('click', function () {
+            log.innerHTML = '';
+        });
+    </script>
+</body>
+</html>
